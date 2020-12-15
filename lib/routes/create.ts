@@ -11,6 +11,7 @@ export default async (req: Request, res: Response) => {
         const error = err as ValidationError;
         res.status(400).send(
             new ErrorResponse(
+                400,
                 'Invalid recipe receieved',
                 error.details[0].message
             )
