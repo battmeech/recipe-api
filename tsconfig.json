@@ -15,5 +15,5 @@
     },
 
     "include": ["lib"],
-    "exclude": ["node_modules"]
+    "exclude": ["lib/**/*.test.*"]
 }
