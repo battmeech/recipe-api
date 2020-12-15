@@ -8,6 +8,9 @@ import { create } from '../persistence/recipePersistence';
 import { PersistedRecipe } from '../persistence/recipeSchema';
 import { newRecipeRules } from '../validation/recipeValidation';
 
+/**
+ * This route is for creating new recipes. Requires a HTTP request with a valid Recipe
+ */
 export default async (req: Request, res: Response) => {
     logger.debug(`Entered route ${req.path}`);
     logger.info('Create recipe endpoint called.');
@@ -46,6 +49,6 @@ export default async (req: Request, res: Response) => {
     logger.info('New rew recipe saved.');
 
     res.status(200).send(
-        new RecipeResponse(persistedRecipe, persistedRecipe.id)
+        new RecipeResponse(persistedRecipe, persistedRecipe._id)
     );
 };

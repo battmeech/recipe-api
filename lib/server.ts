@@ -1,15 +1,7 @@
-import cors from 'cors';
-import express from 'express';
-import mongoose from 'mongoose';
+import { app } from './app';
 import { Config } from './config';
 import { logger } from './logger';
-import { initialiseRoutes } from './routes/initialise';
-
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-initialiseRoutes(app);
+import mongoose from 'mongoose';
 
 logger.info('Establishing connection to database');
 mongoose.connect(Config.databaseUrl, {
