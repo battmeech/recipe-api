@@ -2,7 +2,7 @@ import { Ingredient } from './ingredient';
 import { Instruction } from './instruction';
 
 export type Recipe = RecipeCreate & {
-    id: string;
+    _id: string;
 };
 
 export type RecipeCreate = {
