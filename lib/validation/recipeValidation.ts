@@ -1,18 +1,14 @@
-import { checkSchema } from 'express-validator';
+import joi from 'joi';
 
-export const newRecipeRules = checkSchema({
-    name: {
-        exists: {
-            options: {
-                checkFalsy: true,
-            },
-            errorMessage: 'Recipes require a name.',
-        },
-        isLength: {
-            options: { min: 2, max: 50 },
-            errorMessage:
-                'Recipe name should be at least 2 characters long with a maximum of 50.',
-        },
-        trim: true,
-    },
+export const newRecipeRules = joi.object({
+    name: joi
+        .string()
+        .min(2)
+        .max(50)
+        .required(),
+    serves: joi
+        .number()
+        .integer()
+        .greater(0)
+        .required(),
 });

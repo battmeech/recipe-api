@@ -1,22 +1,21 @@
 import { Request, Response } from 'express';
-import { validationResult } from 'express-validator';
+import { ValidationError } from 'joi';
 import { logger } from '../logger';
 import { ErrorResponse } from '../models/errorResponse';
+import { newRecipeRules } from '../validation/recipeValidation';
 
 export default async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
+    try {
+        await newRecipeRules.validateAsync(req.body);
+    } catch (err) {
+        const error = err as ValidationError;
         res.status(400).send(
             new ErrorResponse(
-                'Invalid request body',
-                // We only want the first error message
-                errors.array({ onlyFirstError: true })[0].msg
+                'Invalid recipe receieved',
+                error.details[0].message
             )
         );
-    } else {
-        logger.info('Creating new recipe');
-
-        res.status(200).send(req.body);
     }
+
+    logger.info('Creating new recipe');
 };
