@@ -1,0 +1,38 @@
+{
+    "name": "recipe-store",
+    "version": "0.0.1",
+    "description": "Store recipes in a MongoDB",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "start": "node dist/index.js",
+        "build": "tsc",
+        "test": "test",
+        "prettier": "prettier --write ./**/*.{ts,tsx,js,css,html,json}",
+        "webpack": "webpack --config webpack.config.ts"
+    },
+    "keywords": [
+        "recipes"
+    ],
+    "author": "Matt Beech",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/cors": "^2.8.6",
+        "@types/express": "^4.17.3",
+        "@types/mongoose": "^5.7.3",
+        "@types/multer": "^1.4.2",
+        "@types/node": "^13.7.7",
+        "prettier": "^1.19.1",
+        "ts-loader": "^6.2.1",
+        "typescript": "^3.8.3"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "fs": "0.0.1-security",
+        "mongoose": "^5.9.3",
+        "multer": "^1.4.2",
+        "winston": "^3.3.3"
+    }
+}
