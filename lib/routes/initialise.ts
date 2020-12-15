@@ -1,16 +1,17 @@
 import { Express } from 'express';
 import { logger } from '../logger';
+import { newRecipeRules } from '../validation/recipeValidation';
+import create from './create';
+import list from './list';
 
 export function initialiseRoutes(app: Express) {
     logger.info('Initialising routes');
 
-    app.get('/recipe', async (req, res) => {
-        res.status(200).send('You hit /recipe');
-    });
+    app.get('/recipe', list);
 
     app.get('/recipe/:id', async (req, res) => {});
 
-    app.post('/recipe', async (req, res) => {});
+    app.post('/recipe', newRecipeRules, create);
 
     app.put('/recipe/:id', async (req, res) => {});
 
