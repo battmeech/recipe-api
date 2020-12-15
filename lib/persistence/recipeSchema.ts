@@ -1,10 +1,10 @@
 import mongoose, { Document, Model } from 'mongoose';
-import { RecipeCreate } from '../models/recipe';
+import { Recipe } from '../models/recipe';
 
-export type IRecipe = Document & RecipeCreate;
+export type PersistedRecipe = Document & Recipe;
 
-export interface IRecipeModel extends Model<IRecipe> {
-    findRecipeById(id: string): Promise<IRecipe>;
+export interface PersistedRecipeModel extends Model<PersistedRecipe> {
+    findRecipeById(id: string): Promise<PersistedRecipe>;
 }
 
 const MongoIncredientSchema = new mongoose.Schema({
@@ -14,7 +14,7 @@ const MongoIncredientSchema = new mongoose.Schema({
 });
 
 const MongoMethodSchema = new mongoose.Schema({
-    instructionNumber: { type: Number },
+    number: { type: Number },
     instruction: { type: String },
 });
 
@@ -29,7 +29,7 @@ const MongoRecipeSchema = new mongoose.Schema({
     difficulty: { type: String },
 });
 
-export const MongoRecipe = mongoose.model<IRecipe, IRecipeModel>(
-    'Recipe',
-    MongoRecipeSchema
-);
+export const MongoRecipe = mongoose.model<
+    PersistedRecipe,
+    PersistedRecipeModel
+>('Recipe', MongoRecipeSchema);

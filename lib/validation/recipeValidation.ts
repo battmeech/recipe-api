@@ -1,7 +1,7 @@
 import joi from 'joi';
 import { Ingredient } from '../models/ingredient';
 import { Instruction } from '../models/instruction';
-import { RecipeCreate } from '../models/recipe';
+import { Recipe } from '../models/recipe';
 
 const ingredientsRules = joi.object<Ingredient>({
     name: joi
@@ -30,7 +30,7 @@ const instructionRules = joi.object<Instruction>({
     number: joi.number().integer(),
 });
 
-export const newRecipeRules = joi.object<RecipeCreate>({
+export const newRecipeRules = joi.object<Recipe>({
     name: joi
         .string()
         .min(2)

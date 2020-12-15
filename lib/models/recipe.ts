@@ -1,11 +1,10 @@
 import { Ingredient } from './ingredient';
 import { Instruction } from './instruction';
 
-export type Recipe = RecipeCreate & {
-    _id: string;
-};
-
-export type RecipeCreate = {
+/**
+ * The basic recipe model
+ */
+export class Recipe {
     name: string;
     serves: number;
     ingredients: Ingredient[];
@@ -14,4 +13,15 @@ export type RecipeCreate = {
     cookingTime: string;
     description: string;
     difficulty: string;
-};
+
+    constructor() {
+        this.name = '';
+        this.serves = 0;
+        this.ingredients = [];
+        this.method = [];
+        this.prepTime = '';
+        this.cookingTime = '';
+        this.description = '';
+        this.difficulty = '';
+    }
+}
