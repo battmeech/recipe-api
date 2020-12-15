@@ -6,12 +6,19 @@ import { Recipe } from './recipe';
 /**
  * The Recipe as it is returned to the user
  */
-export class RecipeResponse extends Recipe {
+export class RecipeResponse implements Recipe {
     id: string;
+    name: string;
+    serves: number;
+    ingredients: Ingredient[];
+    method: Instruction[];
+    prepTime: string;
+    cookingTime: string;
+    description: string;
+    difficulty: string;
 
-    constructor(recipe: PersistedRecipe) {
-        super();
-        this.id = recipe._id;
+    constructor(recipe: Recipe, id: string) {
+        this.id = id;
         this.name = recipe.name;
         this.serves = recipe.serves;
         this.ingredients = recipe.ingredients.map(

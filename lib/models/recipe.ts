@@ -4,7 +4,7 @@ import { Instruction } from './instruction';
 /**
  * The basic recipe model
  */
-export class Recipe {
+export type Recipe = {
     name: string;
     serves: number;
     ingredients: Ingredient[];
@@ -13,15 +13,4 @@ export class Recipe {
     cookingTime: string;
     description: string;
     difficulty: string;
-
-    constructor() {
-        this.name = '';
-        this.serves = 0;
-        this.ingredients = [];
-        this.method = [];
-        this.prepTime = '';
-        this.cookingTime = '';
-        this.description = '';
-        this.difficulty = '';
-    }
-}
+};

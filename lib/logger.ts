@@ -1,4 +1,5 @@
 import * as winston from 'winston';
+import { Config } from './config';
 
 export const logger = winston.createLogger({
     level: 'info',
@@ -16,7 +17,7 @@ export const logger = winston.createLogger({
     defaultMeta: { service: 'recipe-store' },
     transports: [
         new winston.transports.Console({
-            level: 'debug',
+            level: Config.logLevel,
             handleExceptions: true,
         }),
     ],
