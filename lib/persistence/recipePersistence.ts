@@ -8,6 +8,7 @@ import { PersistedRecipe, RecipeModel } from './recipeSchema';
 export async function create(newRecipe: Recipe): Promise<PersistedRecipe> {
     const recipeToSave = new RecipeModel({
         ...newRecipe,
+        createdAt: new Date(),
     });
 
     const savedRecipe = await recipeToSave.save();

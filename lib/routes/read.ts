@@ -43,7 +43,11 @@ export default async (req: Request, res: Response) => {
         logger.info('Recipe found successfully');
 
         res.status(200).send(
-            new RecipeResponse(persistedRecipe, persistedRecipe._id)
+            new RecipeResponse(
+                persistedRecipe,
+                persistedRecipe._id,
+                persistedRecipe.createdAt
+            )
         );
     }
 };

@@ -1,4 +1,3 @@
-import { PersistedRecipe } from '../persistence/recipeSchema';
 import { Ingredient } from './ingredient';
 import { Instruction } from './instruction';
 import { Recipe } from './recipe';
@@ -16,8 +15,9 @@ export class RecipeResponse implements Recipe {
     cookingTime: string;
     description: string;
     difficulty: string;
+    createdAt: Date;
 
-    constructor(recipe: Recipe, id: string) {
+    constructor(recipe: Recipe, id: string, createdAt: Date) {
         this.id = id;
         this.name = recipe.name;
         this.serves = recipe.serves;
@@ -31,5 +31,6 @@ export class RecipeResponse implements Recipe {
         this.cookingTime = recipe.cookingTime;
         this.description = recipe.description;
         this.difficulty = recipe.difficulty;
+        this.createdAt = createdAt;
     }
 }

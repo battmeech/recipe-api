@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 import { Recipe } from '../models/recipe';
 
-export type PersistedRecipe = Document & Recipe;
+export type PersistedRecipe = Document & Recipe & { createdAt: Date };
 
 const IncredientSchema = new mongoose.Schema({
     name: { type: String },
@@ -16,6 +16,7 @@ const MethodSchema = new mongoose.Schema({
 
 const RecipeSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    createdAt: { type: Date, required: true },
     serves: { type: Number },
     ingredients: [IncredientSchema],
     method: [MethodSchema],

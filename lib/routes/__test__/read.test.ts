@@ -15,6 +15,8 @@ describe('Tests of the read route', () => {
     response.status = statusMock;
     response.send = sendMock;
 
+    const createdAt = new Date();
+
     // Mock persisted body
     const expectedBody = {
         _id: '12',
@@ -26,6 +28,7 @@ describe('Tests of the read route', () => {
         prepTime: '10',
         cookingTime: '10',
         description: 'Test',
+        createdAt,
     } as PersistedRecipe;
 
     afterEach(() => {
@@ -50,6 +53,7 @@ describe('Tests of the read route', () => {
             prepTime: '10',
             cookingTime: '10',
             description: 'Test',
+            createdAt,
         };
 
         // Mocks
