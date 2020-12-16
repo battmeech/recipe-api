@@ -13,7 +13,7 @@ import { newRecipeRules } from '../validation/recipeValidation';
  */
 export default async (req: Request, res: Response) => {
     logger.debug(`Entered route ${req.path}`);
-    logger.info('Create recipe endpoint called.');
+    logger.info('Create recipe endpoint called');
     try {
         logger.debug('Validating recipe against schema');
         await newRecipeRules.validateAsync(req.body);
@@ -40,13 +40,14 @@ export default async (req: Request, res: Response) => {
         res.status(500).send(
             new ErrorResponse(500, 'Internal server error', error.message)
         );
+        logger.debug(error.stack);
         return;
     }
 
     logger.debug(
         `Recipe successfully saved id: ${persistedRecipe._id}, returning response to client`
     );
-    logger.info('New rew recipe saved.');
+    logger.info('New recipe saved');
 
     res.status(200).send(
         new RecipeResponse(persistedRecipe, persistedRecipe._id)
