@@ -48,6 +48,8 @@ export async function update(
  * Remove a single recipe from the database
  * @param id the id of the recipe to be deleted
  */
-export async function _delete(id: string): Promise<void> {
-    await RecipeModel.deleteOne({ _id: id });
+export async function _delete(id: string): Promise<number> {
+    const result = await RecipeModel.deleteOne({ _id: id });
+
+    return result.deletedCount ?? 0;
 }

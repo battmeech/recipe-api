@@ -114,10 +114,13 @@ describe('Tests of the recipe persistence service', () => {
         // Mocks
         const persistenceMock = jest
             .spyOn(RecipeModel, 'deleteOne')
-            .mockResolvedValue({});
+            .mockResolvedValue({ deletedCount: 1 });
 
         // Run test
-        await _delete(input);
+        const actual = await _delete(input);
+
+        // Assert
+        expect(actual).toStrictEqual(1);
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);

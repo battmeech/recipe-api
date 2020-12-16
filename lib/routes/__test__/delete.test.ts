@@ -1,32 +1,15 @@
 import { Request, Response } from 'express';
 import { ErrorResponse } from '../../models/errorResponse';
-import { Ingredient } from '../../models/ingredient';
-import { Instruction } from '../../models/instruction';
-import { RecipeResponse } from '../../models/recipeResponse';
 import * as Persistence from '../../persistence/recipePersistence';
-import { PersistedRecipe } from '../../persistence/recipeSchema';
-import read from '../read';
+import _delete from '../delete';
 
-describe('Tests of the read route', () => {
+describe('Tests of the delete route', () => {
     // Mock response
     const response = {} as Response;
     const statusMock = jest.fn().mockReturnValue(response);
     const sendMock = jest.fn().mockReturnValue(response);
     response.status = statusMock;
     response.send = sendMock;
-
-    // Mock persisted body
-    const expectedBody = {
-        _id: '12',
-        ingredients: [] as Ingredient[],
-        method: [] as Instruction[],
-        name: 'Toast',
-        serves: 1,
-        difficulty: 'hard',
-        prepTime: '10',
-        cookingTime: '10',
-        description: 'Test',
-    } as PersistedRecipe;
 
     afterEach(() => {
         jest.clearAllMocks();
@@ -35,43 +18,31 @@ describe('Tests of the read route', () => {
     it('Successfully runs through the read route', async () => {
         // Setup
         const request = ({
-            path: '/recipe/24',
-            method: 'GET',
+            path: '/recipe/12',
+            method: 'DELETE',
             params: { id: '12' },
         } as unknown) as Request;
 
-        const expectedResponseBody: RecipeResponse = {
-            id: '12',
-            ingredients: [] as Ingredient[],
-            method: [] as Instruction[],
-            name: 'Toast',
-            serves: 1,
-            difficulty: 'hard',
-            prepTime: '10',
-            cookingTime: '10',
-            description: 'Test',
-        };
-
         // Mocks
         const persistenceMock = jest
-            .spyOn(Persistence, 'read')
-            .mockReturnValue(Promise.resolve(expectedBody));
+            .spyOn(Persistence, '_delete')
+            .mockReturnValue(Promise.resolve(1));
 
         // Run test
-        await read(request, response);
+        await _delete(request, response);
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
         expect(persistenceMock).toHaveBeenCalledWith('12');
         expect(statusMock).toHaveBeenCalledWith(200);
-        expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
+        expect(sendMock).toHaveBeenCalledTimes(1);
     });
 
     it('Returns a 404 when recipe not found', async () => {
         // Setup
         const request = ({
-            path: '/recipe/24',
-            method: 'GET',
+            path: '/recipe/12',
+            method: 'DELETE',
             params: { id: '12' },
         } as unknown) as Request;
 
@@ -83,17 +54,17 @@ describe('Tests of the read route', () => {
 
         // Mocks
         const persistenceMock = jest
-            .spyOn(Persistence, 'read')
-            .mockReturnValue(Promise.resolve(null));
+            .spyOn(Persistence, '_delete')
+            .mockReturnValue(Promise.resolve(0));
 
         // Run test
-        await read(request, response);
+        await _delete(request, response);
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
         expect(persistenceMock).toHaveBeenCalledWith('12');
         expect(statusMock).toHaveBeenCalledWith(404);
-        expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
+        expect(sendMock).toHaveBeenCalledTimes(1);
     });
 
     it('Returns a 500 when database read fails', async () => {
@@ -112,13 +83,13 @@ describe('Tests of the read route', () => {
 
         // Mocks
         const persistenceMock = jest
-            .spyOn(Persistence, 'read')
+            .spyOn(Persistence, '_delete')
             .mockImplementationOnce(() => {
                 throw new Error('Test error');
             });
 
         // Run test
-        await read(request, response);
+        await _delete(request, response);
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);

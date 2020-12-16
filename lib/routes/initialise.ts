@@ -4,6 +4,7 @@ import create from './create';
 import list from './list';
 import read from './read';
 import update from './update';
+import _delete from './delete';
 
 export function initialiseRoutes(app: Express) {
     logger.info('Initialising routes');
@@ -14,7 +15,7 @@ export function initialiseRoutes(app: Express) {
 
     app.put('/recipe/:id', update);
 
-    app.delete('/recipe/:id', async (req, res) => {});
+    app.delete('/recipe/:id', _delete);
 
     app.get('/recipe', list);
 
