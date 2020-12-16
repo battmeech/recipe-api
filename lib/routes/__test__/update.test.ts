@@ -35,6 +35,16 @@ describe('Tests of the update route', () => {
         path: '/recipe/24',
         method: 'PUT',
         params: { id: '12' },
+        body: {
+            ingredients: [],
+            method: [],
+            name: 'Toast',
+            serves: 1,
+            difficulty: 'hard',
+            prepTime: '10',
+            cookingTime: '10',
+            description: 'Test',
+        },
     } as unknown) as Request;
 
     afterEach(() => {
