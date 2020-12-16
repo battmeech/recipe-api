@@ -1,14 +1,31 @@
 import { Request, Response } from 'express';
+import { ValidationError } from 'joi';
+import mongoose from 'mongoose';
 import { logger } from '../logger';
 import { ErrorResponse } from '../models/errorResponse';
 import { ListRecipe, ListResponse } from '../models/listResponse';
 import { list } from '../persistence/recipePersistence';
 import { constructQuery } from '../utils/query';
-import mongoose from 'mongoose';
+import { listRequestValidationRules } from '../validation/listRequestValidation';
 
 export default async (req: Request, res: Response) => {
     logger.debug(`Entered route ${req.path}`);
     logger.info('List recipe endpoint called');
+    try {
+        logger.debug('Validating recipe against schema');
+        await listRequestValidationRules.validateAsync(req.body);
+    } catch (err) {
+        logger.error('Errors found in request body');
+        const error = err as ValidationError;
+        res.status(400).send(
+            new ErrorResponse(
+                400,
+                'Invalid recipe receieved',
+                error.details[0].message
+            )
+        );
+        return;
+    }
 
     const query = constructQuery(req.body);
 

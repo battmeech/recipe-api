@@ -6,7 +6,9 @@ import { ListResponse } from '../../models/listResponse';
 import * as Persistence from '../../persistence/recipePersistence';
 import { PersistedRecipe } from '../../persistence/recipeSchema';
 import * as Query from '../../utils/query';
+import { listRequestValidationRules } from '../../validation/listRequestValidation';
 import list from '../list';
+import { ValidationError } from 'joi';
 
 describe('Tests of the read route', () => {
     // Mock response
@@ -64,6 +66,10 @@ describe('Tests of the read route', () => {
         const query = {};
 
         // Mocks
+        const validationMock = jest
+            .spyOn(listRequestValidationRules, 'validateAsync')
+            .mockReturnValueOnce(Promise.resolve({}));
+
         const persistenceMock = jest
             .spyOn(Persistence, 'list')
             .mockReturnValue(Promise.resolve(expectedBody));
@@ -76,6 +82,8 @@ describe('Tests of the read route', () => {
         await list(request, response);
 
         // Verify mocks
+        expect(validationMock).toHaveBeenCalledTimes(1);
+        expect(validationMock).toHaveBeenCalledWith(request.body);
         expect(queryMock).toHaveBeenCalledTimes(1);
         expect(queryMock).toHaveBeenCalledWith(request.body);
         expect(persistenceMock).toHaveBeenCalledTimes(1);
@@ -101,6 +109,10 @@ describe('Tests of the read route', () => {
         const query = {};
 
         // Mocks
+        const validationMock = jest
+            .spyOn(listRequestValidationRules, 'validateAsync')
+            .mockReturnValueOnce(Promise.resolve({}));
+
         const persistenceMock = jest
             .spyOn(Persistence, 'list')
             .mockImplementationOnce(() => {
@@ -115,11 +127,44 @@ describe('Tests of the read route', () => {
         await list(request, response);
 
         // Verify mocks
+        expect(validationMock).toHaveBeenCalledTimes(1);
+        expect(validationMock).toHaveBeenCalledWith(request.body);
         expect(queryMock).toHaveBeenCalledTimes(1);
         expect(queryMock).toHaveBeenCalledWith(request.body);
         expect(persistenceMock).toHaveBeenCalledTimes(1);
         expect(persistenceMock).toHaveBeenCalledWith(query, request.body);
         expect(statusMock).toHaveBeenCalledWith(500);
+        expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
+    });
+
+    it('Returns a 400 when validation fails', async () => {
+        // Setup
+        const request = {
+            path: '/recipe',
+            method: 'POST',
+            body: { name: 'toast' },
+        } as Request;
+
+        const expectedResponseBody = new ErrorResponse(
+            400,
+            'Invalid recipe receieved',
+            'Testing'
+        );
+
+        // Mocks
+        const validationMock = jest
+            .spyOn(listRequestValidationRules, 'validateAsync')
+            .mockImplementationOnce(() => {
+                throw new ValidationError('', [{ message: 'Testing' }], null);
+            });
+
+        // Run test
+        await list(request, response);
+
+        // Verify mocks
+        expect(validationMock).toHaveBeenCalledTimes(1);
+        expect(validationMock).toHaveBeenCalledWith(request.body);
+        expect(statusMock).toHaveBeenCalledWith(400);
         expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
     });
 });
