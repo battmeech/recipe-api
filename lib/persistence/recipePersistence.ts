@@ -1,4 +1,3 @@
-import { QueryFindOneAndUpdateOptions } from 'mongoose';
 import { Recipe } from '../models/recipe';
 import { PersistedRecipe, RecipeModel } from './recipeSchema';
 
@@ -43,4 +42,12 @@ export async function update(
     );
 
     return persistedRecipe;
+}
+
+/**
+ * Remove a single recipe from the database
+ * @param id the id of the recipe to be deleted
+ */
+export async function _delete(id: string): Promise<void> {
+    await RecipeModel.deleteOne({ _id: id });
 }

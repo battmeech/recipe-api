@@ -1,6 +1,6 @@
 import { Ingredient } from '../../models/ingredient';
 import { Instruction } from '../../models/instruction';
-import { create, read, update } from '../recipePersistence';
+import { create, read, update, _delete } from '../recipePersistence';
 import { PersistedRecipe, RecipeModel } from '../recipeSchema';
 
 describe('Tests of the recipe persistence service', () => {
@@ -63,6 +63,7 @@ describe('Tests of the recipe persistence service', () => {
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
+        expect(persistenceMock).toHaveBeenCalledWith(input);
     });
 
     it('Successfully updates a recipe', async () => {
@@ -103,5 +104,23 @@ describe('Tests of the recipe persistence service', () => {
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
+        expect(persistenceMock).toHaveBeenCalledWith({ _id: '12' }, input);
+    });
+
+    it('Successfully deletes a recipe', async () => {
+        // Setup
+        const input = '12';
+
+        // Mocks
+        const persistenceMock = jest
+            .spyOn(RecipeModel, 'deleteOne')
+            .mockResolvedValue({});
+
+        // Run test
+        await _delete(input);
+
+        // Verify mocks
+        expect(persistenceMock).toHaveBeenCalledTimes(1);
+        expect(persistenceMock).toHaveBeenCalledWith({ _id: input });
     });
 });
