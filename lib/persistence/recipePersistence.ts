@@ -5,10 +5,13 @@ import { PersistedRecipe, RecipeModel } from './recipeSchema';
  * Save a recipe to MongoDB
  * @param newRecipe the recipe to be saved
  */
-export async function create(newRecipe: Recipe): Promise<PersistedRecipe> {
+export async function create(
+    newRecipe: Recipe,
+    updatedAt: Date
+): Promise<PersistedRecipe> {
     const recipeToSave = new RecipeModel({
         ...newRecipe,
-        updatedAt: new Date(),
+        updatedAt,
     });
 
     const savedRecipe = await recipeToSave.save();
@@ -35,11 +38,12 @@ export async function read(id: string): Promise<PersistedRecipe | null> {
  */
 export async function update(
     id: string,
-    updatedRecipe: Recipe
+    updatedRecipe: Recipe,
+    updatedAt: Date
 ): Promise<PersistedRecipe | null> {
     const persistedRecipe = await RecipeModel.findOneAndUpdate(
         { _id: id },
-        updatedRecipe
+        { ...updatedRecipe, updatedAt }
     );
 
     return persistedRecipe;

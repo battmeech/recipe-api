@@ -19,13 +19,15 @@ describe('Tests of the recipe persistence service', () => {
 
         const expected = { ...input };
 
+        const date = new Date();
+
         // Mocks
         const persistenceMock = jest
             .spyOn(RecipeModel.prototype, 'save')
             .mockReturnValueOnce(expected);
 
         // Run test
-        const actual = await create(input);
+        const actual = await create(input, date);
 
         // Assert
         expect(actual).toStrictEqual(expected);
@@ -91,20 +93,25 @@ describe('Tests of the recipe persistence service', () => {
             method: [],
         };
 
+        const date = new Date();
+
         // Mocks
         const persistenceMock = jest
             .spyOn(RecipeModel, 'findOneAndUpdate')
             .mockResolvedValue(expected);
 
         // Run test
-        const actual = await update('12', input);
+        const actual = await update('12', input, date);
 
         // Assert
         expect(actual).toStrictEqual(expected);
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
-        expect(persistenceMock).toHaveBeenCalledWith({ _id: '12' }, input);
+        expect(persistenceMock).toHaveBeenCalledWith(
+            { _id: '12' },
+            { ...input, updatedAt: date }
+        );
     });
 
     it('Successfully deletes a recipe', async () => {

@@ -16,7 +16,7 @@ const MethodSchema = new mongoose.Schema({
 
 const RecipeSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    createdAt: { type: Date, required: true },
+    updatedAt: { type: Date, required: true },
     serves: { type: Number },
     ingredients: [IncredientSchema],
     method: [MethodSchema],

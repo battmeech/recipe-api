@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { logger } from '../logger';
 import { ErrorResponse } from '../models/errorResponse';
 import { RecipeResponse } from '../models/recipeResponse';
-import { create, update } from '../persistence/recipePersistence';
+import { update } from '../persistence/recipePersistence';
 import { PersistedRecipe } from '../persistence/recipeSchema';
 import { recipeValidationRules } from '../validation/recipeValidation';
 
