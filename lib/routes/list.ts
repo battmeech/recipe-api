@@ -3,9 +3,9 @@ import { ListRecipe, ListResponse } from '../models/listResponse';
 import { RecipeModel } from '../persistence/recipeSchema';
 
 export type ListRequest = {
-    startFrom?: string;
+    pageToken?: string;
     sort?: {
-        sortBy: 'difficulty' | 'createdAt' | 'name';
+        sortBy: 'difficulty' | 'updatedAt' | 'name';
         sortDirection: 'asc' | 'desc';
     };
     numberOfResults?: number;
@@ -17,7 +17,7 @@ export default async (req: Request, res: Response) => {
     const body: ListRequest = req.body;
 
     const results = await RecipeModel.find(
-        body.startFrom && { _id: { $gt: body.startFrom } }
+        body.pageToken && { _id: { $gt: body.pageToken } }
     )
         .sort({
             [body.sort?.sortBy ?? 'createdAt']:
@@ -28,6 +28,7 @@ export default async (req: Request, res: Response) => {
     const response: ListResponse = {
         total,
         recipes: results.map(result => new ListRecipe(result, result._id)),
+        pageToken: results?.length > 0 ? results[results.length - 1]._id : '',
     };
 
     res.status(200).send(response);

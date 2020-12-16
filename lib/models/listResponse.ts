@@ -3,6 +3,7 @@ import { Recipe } from './recipe';
 export type ListResponse = {
     recipes: ListRecipe[];
     total: number;
+    pageToken: string;
 };
 
 export class ListRecipe {
