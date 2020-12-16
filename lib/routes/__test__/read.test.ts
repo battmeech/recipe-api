@@ -1,13 +1,11 @@
-import { Request, Response } from 'express';
-import { ValidationError } from 'joi';
+import express, { Request, Response } from 'express';
 import { ErrorResponse } from '../../models/errorResponse';
 import { Ingredient } from '../../models/ingredient';
 import { Instruction } from '../../models/instruction';
 import { RecipeResponse } from '../../models/recipeResponse';
 import * as Persistence from '../../persistence/recipePersistence';
 import { PersistedRecipe } from '../../persistence/recipeSchema';
-import { newRecipeRules } from '../../validation/recipeValidation';
-import create from '../create';
+import read from '../read';
 
 describe('Tests of the create route', () => {
     // Mock response
@@ -34,13 +32,13 @@ describe('Tests of the create route', () => {
         jest.clearAllMocks();
     });
 
-    it('Successfully runs through the create route', async () => {
+    it('Successfully runs through the read route', async () => {
         // Setup
-        const request = {
-            path: '/recipe',
-            method: 'POST',
-            body: { name: 'toast' },
-        } as Request;
+        const request = ({
+            path: '/recipe/24',
+            method: 'GET',
+            params: { id: '12' },
+        } as unknown) as Request;
 
         const expectedResponseBody: RecipeResponse = {
             id: '12',
@@ -55,61 +53,54 @@ describe('Tests of the create route', () => {
         };
 
         // Mocks
-        const validationMock = jest
-            .spyOn(newRecipeRules, 'validateAsync')
-            .mockReturnValueOnce(Promise.resolve({}));
-
         const persistenceMock = jest
-            .spyOn(Persistence, 'create')
+            .spyOn(Persistence, 'read')
             .mockReturnValue(Promise.resolve(expectedBody));
 
         // Run test
-        await create(request, response);
+        await read(request, response);
 
         // Verify mocks
-        expect(validationMock).toHaveBeenCalledTimes(1);
         expect(persistenceMock).toHaveBeenCalledTimes(1);
         expect(statusMock).toHaveBeenCalledWith(200);
         expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
     });
 
-    it('Returns a 400 when validation fails', async () => {
+    it('Returns a 404 when recipe not found', async () => {
         // Setup
-        const request = {
-            path: '/recipe',
-            method: 'POST',
-            body: { name: 'toast' },
-        } as Request;
+        const request = ({
+            path: '/recipe/24',
+            method: 'GET',
+            params: { id: '12' },
+        } as unknown) as Request;
 
         const expectedResponseBody = new ErrorResponse(
-            400,
-            'Invalid recipe receieved',
-            'Testing'
+            404,
+            'Recipe not found',
+            `Recipe with id "12" could not be found`
         );
 
         // Mocks
-        const validationMock = jest
-            .spyOn(newRecipeRules, 'validateAsync')
-            .mockImplementationOnce(() => {
-                throw new ValidationError('', [{ message: 'Testing' }], null);
-            });
+        const persistenceMock = jest
+            .spyOn(Persistence, 'read')
+            .mockReturnValue(Promise.resolve(null));
 
         // Run test
-        await create(request, response);
+        await read(request, response);
 
         // Verify mocks
-        expect(validationMock).toHaveBeenCalledTimes(1);
-        expect(statusMock).toHaveBeenCalledWith(400);
+        expect(persistenceMock).toHaveBeenCalledTimes(1);
+        expect(statusMock).toHaveBeenCalledWith(404);
         expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
     });
 
-    it('Returns a 500 when the database save fails', async () => {
+    it('Returns a 500 when database read fails', async () => {
         // Setup
-        const request = {
-            path: '/recipe',
-            method: 'POST',
-            body: { name: 'toast' },
-        } as Request;
+        const request = ({
+            path: '/recipe/24',
+            method: 'GET',
+            params: { id: '12' },
+        } as unknown) as Request;
 
         const expectedResponseBody = new ErrorResponse(
             500,
@@ -118,21 +109,16 @@ describe('Tests of the create route', () => {
         );
 
         // Mocks
-        const validationMock = jest
-            .spyOn(newRecipeRules, 'validateAsync')
-            .mockReturnValueOnce(Promise.resolve({}));
-
         const persistenceMock = jest
-            .spyOn(Persistence, 'create')
+            .spyOn(Persistence, 'read')
             .mockImplementationOnce(() => {
                 throw new Error('Test error');
             });
 
         // Run test
-        await create(request, response);
+        await read(request, response);
 
         // Verify mocks
-        expect(validationMock).toHaveBeenCalledTimes(1);
         expect(persistenceMock).toHaveBeenCalledTimes(1);
         expect(statusMock).toHaveBeenCalledWith(500);
         expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);

@@ -15,6 +15,7 @@ export default async (req: Request, res: Response) => {
 
     const id = req.params.id;
 
+    logger.info(JSON.stringify(req.params));
     logger.debug(`Reading recipe with ID ${id}`);
 
     let persistedRecipe: PersistedRecipe | null;
@@ -36,7 +37,7 @@ export default async (req: Request, res: Response) => {
             new ErrorResponse(
                 404,
                 'Recipe not found',
-                `Recipe with id "${id} could not be found`
+                `Recipe with id "${id}" could not be found`
             )
         );
     } else {
