@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 import { Recipe } from '../models/recipe';
 
-export type PersistedRecipe = Document & Recipe & { createdAt: Date };
+export type PersistedRecipe = Document & Recipe & { updatedAt: Date };
 
 const IncredientSchema = new mongoose.Schema({
     name: { type: String },

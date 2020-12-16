@@ -17,7 +17,7 @@ export function initialiseRoutes(app: Express) {
 
     app.delete('/recipe/:id', _delete);
 
-    app.get('/recipe', list);
+    app.post('/list', list);
 
     app.delete('/clean', async (req, res) => {});
 

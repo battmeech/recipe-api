@@ -53,7 +53,7 @@ export default async (req: Request, res: Response) => {
         new RecipeResponse(
             persistedRecipe,
             persistedRecipe._id,
-            persistedRecipe.createdAt
+            persistedRecipe.updatedAt
         )
     );
 };

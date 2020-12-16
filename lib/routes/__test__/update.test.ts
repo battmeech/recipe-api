@@ -30,7 +30,7 @@ describe('Tests of the update route', () => {
         prepTime: '10',
         cookingTime: '10',
         description: 'Test',
-        createdAt,
+        updatedAt: createdAt,
     } as PersistedRecipe;
 
     // Mock request
@@ -66,7 +66,7 @@ describe('Tests of the update route', () => {
             prepTime: '10',
             cookingTime: '10',
             description: 'Test',
-            createdAt,
+            updatedAt: createdAt,
         };
 
         // Mocks
