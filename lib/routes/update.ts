@@ -36,9 +36,10 @@ export default async (req: Request, res: Response) => {
     logger.debug(`Updating recipe with ID ${id}`);
 
     let persistedRecipe: PersistedRecipe | null;
+    const updatedAt = new Date(Date.now());
     try {
         logger.debug('Attempting to update recipe');
-        persistedRecipe = await update(id, req.body);
+        persistedRecipe = await update(id, req.body, updatedAt);
     } catch (err) {
         logger.error('Error encountered when attempting to update recipe');
         const error = err as mongoose.Error;
@@ -64,11 +65,7 @@ export default async (req: Request, res: Response) => {
         logger.info('New recipe saved');
 
         res.status(200).send(
-            new RecipeResponse(
-                req.body,
-                persistedRecipe._id,
-                persistedRecipe.updatedAt
-            )
+            new RecipeResponse(req.body, persistedRecipe._id, updatedAt)
         );
     }
 };

@@ -17,7 +17,7 @@ describe('Tests of the update route', () => {
     response.status = statusMock;
     response.send = sendMock;
 
-    const createdAt = new Date();
+    const updatedAt = new Date(1);
 
     // Mock persisted body
     const expectedBody = {
@@ -30,7 +30,7 @@ describe('Tests of the update route', () => {
         prepTime: '10',
         cookingTime: '10',
         description: 'Test',
-        updatedAt: createdAt,
+        updatedAt,
     } as PersistedRecipe;
 
     // Mock request
@@ -66,7 +66,7 @@ describe('Tests of the update route', () => {
             prepTime: '10',
             cookingTime: '10',
             description: 'Test',
-            updatedAt: createdAt,
+            updatedAt,
         };
 
         // Mocks
@@ -78,6 +78,8 @@ describe('Tests of the update route', () => {
             .spyOn(Persistence, 'update')
             .mockReturnValue(Promise.resolve(expectedBody));
 
+        const dateMock = jest.spyOn(Date, 'now').mockReturnValueOnce(1);
+
         // Run test
         await update(request, response);
 
@@ -86,6 +88,7 @@ describe('Tests of the update route', () => {
         expect(persistenceMock).toHaveBeenCalledTimes(1);
         expect(statusMock).toHaveBeenCalledWith(200);
         expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
+        expect(dateMock).toHaveBeenCalledTimes(1);
     });
 
     it('Returns a 400 when validation fails', async () => {

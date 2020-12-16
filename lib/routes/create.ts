@@ -31,9 +31,10 @@ export default async (req: Request, res: Response) => {
     }
 
     let persistedRecipe: PersistedRecipe;
+    const updatedAt = new Date(Date.now());
     try {
         logger.debug('Attempting to save new recipe');
-        persistedRecipe = await create(req.body);
+        persistedRecipe = await create(req.body, updatedAt);
     } catch (err) {
         logger.error('Error encountered when attempting to save recipe');
         const error = err as mongoose.Error;
