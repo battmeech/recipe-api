@@ -1,6 +1,6 @@
 import { Ingredient } from '../../models/ingredient';
 import { Instruction } from '../../models/instruction';
-import { create, read, update, _delete } from '../recipePersistence';
+import { create, list, read, update, _delete } from '../recipePersistence';
 import { PersistedRecipe, RecipeModel } from '../recipeSchema';
 
 describe('Tests of the recipe persistence service', () => {
@@ -132,5 +132,31 @@ describe('Tests of the recipe persistence service', () => {
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
         expect(persistenceMock).toHaveBeenCalledWith({ _id: input });
+    });
+
+    it('Successfully lists recipes', async () => {
+        // Setup
+        const input = {};
+        const request = {};
+
+        // Mocks
+        const MongoMocks: any = {
+            limit: jest.fn(() => MongoMocks),
+            sort: jest.fn(() => MongoMocks),
+        };
+
+        const findMock = jest
+            .spyOn(RecipeModel, 'find')
+            .mockReturnValue(MongoMocks);
+
+        // Run test
+        const actual = await list(input, request);
+
+        // Assert
+        expect(actual).toStrictEqual(MongoMocks);
+
+        // Verify mocks
+        expect(findMock).toHaveBeenCalledTimes(1);
+        expect(findMock).toHaveBeenCalledWith({});
     });
 });

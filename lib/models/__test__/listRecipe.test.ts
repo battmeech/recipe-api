@@ -1,10 +1,9 @@
-import { RecipeResponse } from '../recipeResponse';
+import { ListRecipe } from '../listResponse';
 
-describe('Tests of the recipe response model', () => {
-    it('Successfully instantiates a new recipe response model', () => {
+describe('Tests of the list recipe model', () => {
+    it('Successfully instantiates a new list recipe model', () => {
         // Setup
-        const updatedAt = new Date();
-        const recipe = new RecipeResponse(
+        const recipe = new ListRecipe(
             {
                 name: 'toast',
                 serves: 1,
@@ -15,8 +14,7 @@ describe('Tests of the recipe response model', () => {
                 ingredients: [],
                 method: [],
             },
-            '12',
-            updatedAt
+            '12'
         );
 
         // Assert
@@ -27,7 +25,5 @@ describe('Tests of the recipe response model', () => {
         expect(recipe.prepTime).toStrictEqual('10');
         expect(recipe.cookingTime).toStrictEqual('10');
         expect(recipe.description).toStrictEqual('Test');
-        expect(recipe.ingredients).toStrictEqual([]);
-        expect(recipe.method).toStrictEqual([]);
     });
 });
