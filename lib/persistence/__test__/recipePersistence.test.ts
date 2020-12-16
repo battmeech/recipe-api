@@ -1,6 +1,6 @@
 import { Ingredient } from '../../models/ingredient';
 import { Instruction } from '../../models/instruction';
-import { create, read } from '../recipePersistence';
+import { create, read, update } from '../recipePersistence';
 import { PersistedRecipe, RecipeModel } from '../recipeSchema';
 
 describe('Tests of the recipe persistence service', () => {
@@ -57,6 +57,46 @@ describe('Tests of the recipe persistence service', () => {
 
         // Run test
         const actual = await read(input);
+
+        // Assert
+        expect(actual).toStrictEqual(expected);
+
+        // Verify mocks
+        expect(persistenceMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('Successfully updates a recipe', async () => {
+        // Setup
+        const expected = {
+            _id: '12',
+            ingredients: [] as Ingredient[],
+            method: [] as Instruction[],
+            name: 'toast',
+            serves: 1,
+            difficulty: 'hard',
+            prepTime: '10',
+            cookingTime: '10',
+            description: 'Test',
+        } as PersistedRecipe;
+
+        const input = {
+            name: 'toast',
+            serves: 1,
+            difficulty: 'hard',
+            prepTime: '10',
+            cookingTime: '10',
+            description: 'Test',
+            ingredients: [],
+            method: [],
+        };
+
+        // Mocks
+        const persistenceMock = jest
+            .spyOn(RecipeModel, 'findOneAndUpdate')
+            .mockResolvedValue(expected);
+
+        // Run test
+        const actual = await update('12', input);
 
         // Assert
         expect(actual).toStrictEqual(expected);
