@@ -1,18 +1,31 @@
 import { Request, Response } from 'express';
-import { ListRequest } from '../models/listRequest';
+import { logger } from '../logger';
+import { ErrorResponse } from '../models/errorResponse';
 import { ListRecipe, ListResponse } from '../models/listResponse';
-import { RecipeModel } from '../persistence/recipeSchema';
+import { list } from '../persistence/recipePersistence';
 import { constructQuery } from '../utils/query';
+import mongoose from 'mongoose';
 
 export default async (req: Request, res: Response) => {
+    logger.debug(`Entered route ${req.path}`);
+    logger.info('List recipe endpoint called');
+
     const query = constructQuery(req.body);
 
-    const results = await RecipeModel.find(query)
-        .sort({
-            [req.body.sort?.sortBy ?? 'updatedAt']:
-                req.body.sort?.sortDirection ?? 'asc',
-        })
-        .limit(req.body.numberOfResults ?? 10);
+    let results = [];
+
+    try {
+        logger.debug('Searching DB based on query');
+        results = await list(query, req.body);
+    } catch (err) {
+        logger.error('Error encountered when attempting to list recipes');
+        const error = err as mongoose.Error;
+        res.status(500).send(
+            new ErrorResponse(500, 'Internal server error', error.message)
+        );
+        logger.debug(error.stack);
+        return;
+    }
 
     const response: ListResponse = {
         recipes: results.map(result => new ListRecipe(result, result._id)),

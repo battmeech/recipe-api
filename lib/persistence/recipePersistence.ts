@@ -1,3 +1,4 @@
+import { ListRequest } from '../models/listRequest';
 import { Recipe } from '../models/recipe';
 import { PersistedRecipe, RecipeModel } from './recipeSchema';
 
@@ -57,4 +58,23 @@ export async function _delete(id: string): Promise<number> {
     const result = await RecipeModel.deleteOne({ _id: id });
 
     return result.deletedCount ?? 0;
+}
+
+/**
+ * Get a list of recipes from the database based on certain criteria
+ * @param query the query which will be sent to MongoDB
+ * @param listRequest contains information around the sort direction and limit
+ */
+export async function list(
+    query: any,
+    listRequest: ListRequest
+): Promise<PersistedRecipe[]> {
+    const results = await RecipeModel.find(query)
+        .sort({
+            [listRequest.sort?.sortBy ?? 'updatedAt']:
+                listRequest.sort?.sortDirection ?? 'asc',
+        })
+        .limit(listRequest.numberOfResults ?? 10);
+
+    return results;
 }
