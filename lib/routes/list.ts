@@ -1,32 +1,20 @@
 import { Request, Response } from 'express';
+import { ListRequest } from '../models/listRequest';
 import { ListRecipe, ListResponse } from '../models/listResponse';
 import { RecipeModel } from '../persistence/recipeSchema';
-
-export type ListRequest = {
-    pageToken?: string;
-    sort?: {
-        sortBy: 'difficulty' | 'updatedAt' | 'name';
-        sortDirection: 'asc' | 'desc';
-    };
-    numberOfResults?: number;
-};
+import { constructQuery } from '../utils/query';
 
 export default async (req: Request, res: Response) => {
-    const total = await RecipeModel.estimatedDocumentCount();
+    const query = constructQuery(req.body);
 
-    const body: ListRequest = req.body;
-
-    const results = await RecipeModel.find(
-        body.pageToken && { _id: { $gt: body.pageToken } }
-    )
+    const results = await RecipeModel.find(query)
         .sort({
-            [body.sort?.sortBy ?? 'createdAt']:
-                body.sort?.sortDirection ?? 'asc',
+            [req.body.sort?.sortBy ?? 'updatedAt']:
+                req.body.sort?.sortDirection ?? 'asc',
         })
-        .limit(body.numberOfResults ?? 10);
+        .limit(req.body.numberOfResults ?? 10);
 
     const response: ListResponse = {
-        total,
         recipes: results.map(result => new ListRecipe(result, result._id)),
         pageToken: results?.length > 0 ? results[results.length - 1]._id : '',
     };

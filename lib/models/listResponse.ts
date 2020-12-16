@@ -1,11 +1,16 @@
 import { Recipe } from './recipe';
 
+/**
+ * The response when requesting a recipe
+ */
 export type ListResponse = {
     recipes: ListRecipe[];
-    total: number;
     pageToken: string;
 };
 
+/**
+ * How the recipe is displayed in a list
+ */
 export class ListRecipe {
     id: string;
     name: string;
