@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { ErrorResponse } from '../../models/errorResponse';
 import { Ingredient } from '../../models/ingredient';
 import { Instruction } from '../../models/instruction';
@@ -62,6 +62,7 @@ describe('Tests of the create route', () => {
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
+        expect(persistenceMock).toHaveBeenCalledWith('12');
         expect(statusMock).toHaveBeenCalledWith(200);
         expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
     });
@@ -90,6 +91,7 @@ describe('Tests of the create route', () => {
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
+        expect(persistenceMock).toHaveBeenCalledWith('12');
         expect(statusMock).toHaveBeenCalledWith(404);
         expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
     });
@@ -120,6 +122,7 @@ describe('Tests of the create route', () => {
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
+        expect(persistenceMock).toHaveBeenCalledWith('12');
         expect(statusMock).toHaveBeenCalledWith(500);
         expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
     });
