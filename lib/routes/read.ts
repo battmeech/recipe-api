@@ -15,7 +15,6 @@ export default async (req: Request, res: Response) => {
 
     const id = req.params.id;
 
-    logger.info(JSON.stringify(req.params));
     logger.debug(`Reading recipe with ID ${id}`);
 
     let persistedRecipe: PersistedRecipe | null;

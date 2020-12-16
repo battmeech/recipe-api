@@ -7,9 +7,9 @@ import { RecipeResponse } from '../../models/recipeResponse';
 import * as Persistence from '../../persistence/recipePersistence';
 import { PersistedRecipe } from '../../persistence/recipeSchema';
 import { recipeValidationRules } from '../../validation/recipeValidation';
-import create from '../create';
+import update from '../update';
 
-describe('Tests of the create route', () => {
+describe('Tests of the update route', () => {
     // Mock response
     const response = {} as Response;
     const statusMock = jest.fn().mockReturnValue(response);
@@ -30,18 +30,19 @@ describe('Tests of the create route', () => {
         description: 'Test',
     } as PersistedRecipe;
 
+    // Mock request
+    const request = ({
+        path: '/recipe/24',
+        method: 'PUT',
+        params: { id: '12' },
+    } as unknown) as Request;
+
     afterEach(() => {
         jest.clearAllMocks();
     });
 
-    it('Successfully runs through the create route', async () => {
+    it('Successfully runs through the update route', async () => {
         // Setup
-        const request = {
-            path: '/recipe',
-            method: 'POST',
-            body: { name: 'toast' },
-        } as Request;
-
         const expectedResponseBody: RecipeResponse = {
             id: '12',
             ingredients: [] as Ingredient[],
@@ -60,11 +61,11 @@ describe('Tests of the create route', () => {
             .mockReturnValueOnce(Promise.resolve({}));
 
         const persistenceMock = jest
-            .spyOn(Persistence, 'create')
+            .spyOn(Persistence, 'update')
             .mockReturnValue(Promise.resolve(expectedBody));
 
         // Run test
-        await create(request, response);
+        await update(request, response);
 
         // Verify mocks
         expect(validationMock).toHaveBeenCalledTimes(1);
@@ -75,12 +76,6 @@ describe('Tests of the create route', () => {
 
     it('Returns a 400 when validation fails', async () => {
         // Setup
-        const request = {
-            path: '/recipe',
-            method: 'POST',
-            body: { name: 'toast' },
-        } as Request;
-
         const expectedResponseBody = new ErrorResponse(
             400,
             'Invalid recipe receieved',
@@ -95,7 +90,7 @@ describe('Tests of the create route', () => {
             });
 
         // Run test
-        await create(request, response);
+        await update(request, response);
 
         // Verify mocks
         expect(validationMock).toHaveBeenCalledTimes(1);
@@ -105,12 +100,6 @@ describe('Tests of the create route', () => {
 
     it('Returns a 500 when the database save fails', async () => {
         // Setup
-        const request = {
-            path: '/recipe',
-            method: 'POST',
-            body: { name: 'toast' },
-        } as Request;
-
         const expectedResponseBody = new ErrorResponse(
             500,
             'Internal server error',
@@ -123,13 +112,13 @@ describe('Tests of the create route', () => {
             .mockReturnValueOnce(Promise.resolve({}));
 
         const persistenceMock = jest
-            .spyOn(Persistence, 'create')
+            .spyOn(Persistence, 'update')
             .mockImplementationOnce(() => {
                 throw new Error('Test error');
             });
 
         // Run test
-        await create(request, response);
+        await update(request, response);
 
         // Verify mocks
         expect(validationMock).toHaveBeenCalledTimes(1);

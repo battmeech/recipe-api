@@ -4,16 +4,17 @@ import mongoose from 'mongoose';
 import { logger } from '../logger';
 import { ErrorResponse } from '../models/errorResponse';
 import { RecipeResponse } from '../models/recipeResponse';
-import { create } from '../persistence/recipePersistence';
+import { create, update } from '../persistence/recipePersistence';
 import { PersistedRecipe } from '../persistence/recipeSchema';
 import { recipeValidationRules } from '../validation/recipeValidation';
 
 /**
- * This route is for creating new recipes. Requires a HTTP request with a valid Recipe
+ * This route is for updating existing recipes. Requires a HTTP request with a valid Recipe
+ * in the body and ID in the URL
  */
 export default async (req: Request, res: Response) => {
     logger.debug(`Entered route ${req.path}`);
-    logger.info('Create recipe endpoint called');
+    logger.info('Update recipe endpoint called');
     try {
         logger.debug('Validating recipe against schema');
         await recipeValidationRules.validateAsync(req.body);
@@ -30,12 +31,16 @@ export default async (req: Request, res: Response) => {
         return;
     }
 
-    let persistedRecipe: PersistedRecipe;
+    const id = req.params.id;
+
+    logger.debug(`Updating recipe with ID ${id}`);
+
+    let persistedRecipe: PersistedRecipe | null;
     try {
-        logger.debug('Attempting to save new recipe');
-        persistedRecipe = await create(req.body);
+        logger.debug('Attempting to update recipe');
+        persistedRecipe = await update(id, req.body);
     } catch (err) {
-        logger.error('Error encountered when attempting to save recipe');
+        logger.error('Error encountered when attempting to update recipe');
         const error = err as mongoose.Error;
         res.status(500).send(
             new ErrorResponse(500, 'Internal server error', error.message)
@@ -44,12 +49,22 @@ export default async (req: Request, res: Response) => {
         return;
     }
 
-    logger.debug(
-        `Recipe successfully saved id: ${persistedRecipe._id}, returning response to client`
-    );
-    logger.info('New recipe saved');
+    if (!persistedRecipe) {
+        res.status(404).send(
+            new ErrorResponse(
+                404,
+                'Recipe not found',
+                `Recipe with id "${id}" could not be found`
+            )
+        );
+    } else {
+        logger.debug(
+            `Recipe successfully updated id: ${persistedRecipe._id}, returning response to client`
+        );
+        logger.info('New recipe saved');
 
-    res.status(200).send(
-        new RecipeResponse(persistedRecipe, persistedRecipe._id)
-    );
+        res.status(200).send(
+            new RecipeResponse(persistedRecipe, persistedRecipe._id)
+        );
+    }
 };

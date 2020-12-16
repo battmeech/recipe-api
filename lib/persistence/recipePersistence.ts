@@ -1,3 +1,4 @@
+import { QueryFindOneAndUpdateOptions } from 'mongoose';
 import { Recipe } from '../models/recipe';
 import { PersistedRecipe, RecipeModel } from './recipeSchema';
 

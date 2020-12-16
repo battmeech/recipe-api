@@ -30,7 +30,7 @@ const instructionRules = joi.object<Instruction>({
     number: joi.number().integer(),
 });
 
-export const newRecipeRules = joi.object<Recipe>({
+export const recipeValidationRules = joi.object<Recipe>({
     name: joi
         .string()
         .min(2)

@@ -1,5 +1,5 @@
 import { Recipe } from '../../models/recipe';
-import { newRecipeRules } from '../recipeValidation';
+import { recipeValidationRules } from '../recipeValidation';
 
 describe('Tests of the recipe validation service', () => {
     it('A valid recipe succeeds validation', () => {
@@ -16,7 +16,7 @@ describe('Tests of the recipe validation service', () => {
         };
 
         // Run test
-        const { error } = newRecipeRules.validate(recipeToTest);
+        const { error } = recipeValidationRules.validate(recipeToTest);
 
         // Assert
         expect(error).toBeFalsy();
@@ -35,7 +35,7 @@ describe('Tests of the recipe validation service', () => {
         };
 
         // Run test
-        const { error } = newRecipeRules.validate(recipeToTest);
+        const { error } = recipeValidationRules.validate(recipeToTest);
 
         // Assert
         expect(error?.message).toStrictEqual('"name" is required');
@@ -55,7 +55,7 @@ describe('Tests of the recipe validation service', () => {
         };
 
         // Run test
-        const { error } = newRecipeRules.validate(recipeToTest);
+        const { error } = recipeValidationRules.validate(recipeToTest);
 
         // Assert
         expect(error?.message).toStrictEqual(
@@ -77,7 +77,7 @@ describe('Tests of the recipe validation service', () => {
         };
 
         // Run test
-        const { error } = newRecipeRules.validate(recipeToTest);
+        const { error } = recipeValidationRules.validate(recipeToTest);
 
         // Assert
         expect(error?.message).toStrictEqual(
