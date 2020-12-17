@@ -1,7 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-
 <!-- HEADER -->
 <br />
 <p align="center">
@@ -124,13 +120,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 Matt Beech - matthew_beech@live.co.uk
 
 Project Link: [https://github.com/battmeech/recipe-api](https://github.com/battmeech/recipe-api)
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/battmeech/recipe-api.svg?style=for-the-badge
-[contributors-url]: https://github.com/battmeech/recipe-api/graphs/contributors
-[stars-shield]: https://img.shields.io/github/stars/battmeech/recipe-api.svg?style=for-the-badge
-[stars-url]: https://github.com/battmeech/recipe-api/stargazers
-[issues-shield]: https://img.shields.io/github/issues/battmeech/recipe-api.svg?style=for-the-badge
-[issues-url]: https://github.com/battmeech/recipe-api/issues
