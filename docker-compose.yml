@@ -6,7 +6,7 @@ services:
         volumes:
             - mongo:/data/db
     recipe-api:
-        build: .
+        image: docker.pkg.github.com/battmeech/recipe-api/recipe-api:latest
         ports:
             - '3000:3000'
         container_name: recipe-api
