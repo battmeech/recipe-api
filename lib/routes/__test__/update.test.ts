@@ -95,7 +95,7 @@ describe('Tests of the update route', () => {
         // Setup
         const expectedResponseBody = new ErrorResponse(
             400,
-            'Invalid request receieved',
+            'Invalid recipe receieved',
             'Testing'
         );
 

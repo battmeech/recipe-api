@@ -10,7 +10,7 @@ import { listRequestValidationRules } from '../../validation/listRequestValidati
 import list from '../list';
 import { ValidationError } from 'joi';
 
-describe('Tests of the read route', () => {
+describe('Tests of the list route', () => {
     // Mock response
     const response = {} as Response;
     const statusMock = jest.fn().mockReturnValue(response);
@@ -40,7 +40,7 @@ describe('Tests of the read route', () => {
         jest.clearAllMocks();
     });
 
-    it('Successfully runs through the read route', async () => {
+    it('Successfully runs through the list route', async () => {
         // Setup
         const request = {
             path: '/list',
@@ -147,7 +147,7 @@ describe('Tests of the read route', () => {
 
         const expectedResponseBody = new ErrorResponse(
             400,
-            'Invalid recipe receieved',
+            'Invalid request receieved',
             'Testing'
         );
 
