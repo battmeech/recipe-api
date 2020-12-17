@@ -48,7 +48,7 @@ describe('Tests of the recipe persistence service', () => {
             prepTime: '10',
             cookingTime: '10',
             description: 'Test',
-        } as PersistedRecipe;
+        } as any;
 
         const input = '12';
 
@@ -80,7 +80,7 @@ describe('Tests of the recipe persistence service', () => {
             prepTime: '10',
             cookingTime: '10',
             description: 'Test',
-        } as PersistedRecipe;
+        } as any;
 
         const input = {
             name: 'toast',
