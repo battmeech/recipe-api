@@ -20,7 +20,7 @@ export default async (req: Request, res: Response) => {
         res.status(400).send(
             new ErrorResponse(
                 400,
-                'Invalid recipe receieved',
+                'Invalid request receieved',
                 error.details[0].message
             )
         );
