@@ -1,4 +1,5 @@
 ![CI](https://github.com/battmeech/recipe-api/workflows/CI/badge.svg)
+![Docker](https://github.com/battmeech/recipe-api/workflows/Docker/badge.svg)
 
 <!-- HEADER -->
 <br />
