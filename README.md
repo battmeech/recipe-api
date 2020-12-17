@@ -1,3 +1,5 @@
+![CI](https://github.com/battmeech/recipe-api/workflows/CI/badge.svg)
+
 <!-- HEADER -->
 <br />
 <p align="center">
