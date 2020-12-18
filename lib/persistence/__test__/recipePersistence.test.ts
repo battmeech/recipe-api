@@ -1,7 +1,7 @@
 import { Ingredient } from '../../models/ingredient';
 import { Instruction } from '../../models/instruction';
 import { create, list, read, update, _delete } from '../recipePersistence';
-import { PersistedRecipe, RecipeModel } from '../recipeSchema';
+import { RecipeModel } from '../recipeSchema';
 
 describe('Tests of the recipe persistence service', () => {
     it('Successfully saves a recipe', async () => {
@@ -10,8 +10,8 @@ describe('Tests of the recipe persistence service', () => {
             name: 'toast',
             serves: 1,
             difficulty: 'hard',
-            prepTime: '10',
-            cookingTime: '10',
+            prepTime: 10,
+            cookingTime: 10,
             description: 'Test',
             ingredients: [],
             method: [],
@@ -45,8 +45,8 @@ describe('Tests of the recipe persistence service', () => {
             name: 'Toast',
             serves: 1,
             difficulty: 'hard',
-            prepTime: '10',
-            cookingTime: '10',
+            prepTime: 10,
+            cookingTime: 10,
             description: 'Test',
         } as any;
 
@@ -77,8 +77,8 @@ describe('Tests of the recipe persistence service', () => {
             name: 'toast',
             serves: 1,
             difficulty: 'hard',
-            prepTime: '10',
-            cookingTime: '10',
+            prepTime: 10,
+            cookingTime: 10,
             description: 'Test',
         } as any;
 
@@ -86,8 +86,8 @@ describe('Tests of the recipe persistence service', () => {
             name: 'toast',
             serves: 1,
             difficulty: 'hard',
-            prepTime: '10',
-            cookingTime: '10',
+            prepTime: 10,
+            cookingTime: 10,
             description: 'Test',
             ingredients: [],
             method: [],

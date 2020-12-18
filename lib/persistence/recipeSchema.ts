@@ -20,8 +20,8 @@ const RecipeSchema = new mongoose.Schema({
     serves: { type: Number },
     ingredients: [IncredientSchema],
     method: [MethodSchema],
-    prepTime: { type: String },
-    cookingTime: { type: String },
+    prepTime: { type: Number },
+    cookingTime: { type: Number },
     description: { type: String },
     difficulty: { type: String },
 });

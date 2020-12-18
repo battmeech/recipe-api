@@ -65,6 +65,7 @@ describe('Tests of the delete route', () => {
         expect(persistenceMock).toHaveBeenCalledWith('12');
         expect(statusMock).toHaveBeenCalledWith(404);
         expect(sendMock).toHaveBeenCalledTimes(1);
+        expect(sendMock).toHaveBeenCalledWith(expectedResponseBody);
     });
 
     it('Returns a 500 when database read fails', async () => {

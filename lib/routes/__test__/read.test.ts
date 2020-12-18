@@ -25,8 +25,8 @@ describe('Tests of the read route', () => {
         name: 'Toast',
         serves: 1,
         difficulty: 'hard',
-        prepTime: '10',
-        cookingTime: '10',
+        prepTime: 10,
+        cookingTime: 10,
         description: 'Test',
         updatedAt: createdAt,
     } as PersistedRecipe;
@@ -50,8 +50,8 @@ describe('Tests of the read route', () => {
             name: 'Toast',
             serves: 1,
             difficulty: 'hard',
-            prepTime: '10',
-            cookingTime: '10',
+            prepTime: 10,
+            cookingTime: 10,
             description: 'Test',
             updatedAt: createdAt,
         };

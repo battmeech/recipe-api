@@ -11,8 +11,8 @@ export class RecipeResponse implements Recipe {
     serves: number;
     ingredients: Ingredient[];
     method: Instruction[];
-    prepTime: string;
-    cookingTime: string;
+    prepTime: number;
+    cookingTime: number;
     description: string;
     difficulty: string;
     updatedAt: Date;
@@ -22,10 +22,10 @@ export class RecipeResponse implements Recipe {
         this.name = recipe.name;
         this.serves = recipe.serves;
         this.ingredients = recipe.ingredients.map(
-            ingredient => new Ingredient(ingredient)
+            (ingredient) => new Ingredient(ingredient)
         );
         this.method = recipe.method.map(
-            instruction => new Instruction(instruction)
+            (instruction) => new Instruction(instruction)
         );
         this.prepTime = recipe.prepTime;
         this.cookingTime = recipe.cookingTime;
