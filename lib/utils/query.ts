@@ -15,8 +15,12 @@ export function constructQuery(request: ListRequest) {
         query.difficulty = { $in: request.filters.difficulty };
     }
 
-    if (request.filters?.serves) {
-        query.serves = { $lte: request.filters.serves };
+    if (request.filters?.cookingTime) {
+        query.cookingTime = { $lte: request.filters.cookingTime };
+    }
+
+    if (request.filters?.prepTime) {
+        query.prepTime = { $lte: request.filters.prepTime };
     }
 
     return query;

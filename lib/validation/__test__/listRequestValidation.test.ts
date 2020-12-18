@@ -7,7 +7,8 @@ describe('Tests of the list request validation service', () => {
         const input: ListRequest = {
             filters: {
                 difficulty: ['HARD'],
-                serves: 2,
+                cookingTime: 10,
+                prepTime: 10,
             },
             numberOfResults: 10,
             pageToken: '12345',

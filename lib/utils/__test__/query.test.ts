@@ -8,14 +8,16 @@ describe('Tests of constructQuery():', () => {
             pageToken: '123456',
             filters: {
                 difficulty: ['HARD'],
-                serves: 12,
+                cookingTime: 12,
+                prepTime: 12,
             },
         };
 
         const expected = {
             _id: { $gt: '123456' },
             difficulty: { $in: ['HARD'] },
-            serves: { $lte: 12 },
+            cookingTime: { $lte: 12 },
+            prepTime: { $lte: 12 },
         };
 
         // Run test

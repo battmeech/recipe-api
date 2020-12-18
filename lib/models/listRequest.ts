@@ -15,5 +15,6 @@ export type Sort = {
 
 export type Filter = {
     difficulty?: string[];
-    serves?: number;
+    cookingTime?: number;
+    prepTime?: number;
 };
