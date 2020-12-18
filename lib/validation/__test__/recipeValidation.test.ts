@@ -5,13 +5,13 @@ describe('Tests of the recipe validation service', () => {
     it('A valid recipe succeeds validation', () => {
         // Setup
         const recipeToTest: Recipe = {
-            cookingTime: '20 mins',
+            cookingTime: 20,
             description: 'This is a test recipe',
             difficulty: 'HARD',
             ingredients: [],
             method: [],
             name: 'Test recipe',
-            prepTime: '5 mins',
+            prepTime: 5,
             serves: 1,
         };
 
@@ -25,12 +25,12 @@ describe('Tests of the recipe validation service', () => {
     it('A recipe with a missing field gives a validation error', () => {
         // Setup
         const recipeToTest = {
-            cookingTime: '20 mins',
+            cookingTime: 20,
             description: 'This is a test recipe',
             difficulty: 'HARD',
             ingredients: [],
             method: [],
-            prepTime: '5 mins',
+            prepTime: 5,
             serves: 1,
         };
 
@@ -44,13 +44,13 @@ describe('Tests of the recipe validation service', () => {
     it('A recipe with an invalid field gives a validation error', () => {
         // Setup
         const recipeToTest: Recipe = {
-            cookingTime: '20 mins',
+            cookingTime: 20,
             description: 'This is a test recipe',
             difficulty: 'HARD',
             ingredients: [],
             method: [],
             name: 'a',
-            prepTime: '5 mins',
+            prepTime: 5,
             serves: 1,
         };
 
@@ -66,13 +66,13 @@ describe('Tests of the recipe validation service', () => {
     it('A recipe with an invalid nested object gives a validation error', () => {
         // Setup
         const recipeToTest = {
-            cookingTime: '20 mins',
+            cookingTime: 20,
             description: 'This is a test recipe',
             difficulty: 'HARD',
             ingredients: [{ quantityType: 'g', name: 'Cheese' }],
             method: [],
             name: 'ab',
-            prepTime: '5 mins',
+            prepTime: 5,
             serves: 1,
         };
 

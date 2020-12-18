@@ -27,8 +27,8 @@ describe('Tests of the update route', () => {
         name: 'Toast',
         serves: 1,
         difficulty: 'hard',
-        prepTime: '10',
-        cookingTime: '10',
+        prepTime: 10,
+        cookingTime: 10,
         description: 'Test',
         updatedAt,
     } as PersistedRecipe;
@@ -44,8 +44,8 @@ describe('Tests of the update route', () => {
             name: 'Toast',
             serves: 1,
             difficulty: 'hard',
-            prepTime: '10',
-            cookingTime: '10',
+            prepTime: 10,
+            cookingTime: 10,
             description: 'Test',
         },
     } as unknown) as Request;
@@ -63,8 +63,8 @@ describe('Tests of the update route', () => {
             name: 'Toast',
             serves: 1,
             difficulty: 'hard',
-            prepTime: '10',
-            cookingTime: '10',
+            prepTime: 10,
+            cookingTime: 10,
             description: 'Test',
             updatedAt,
         };

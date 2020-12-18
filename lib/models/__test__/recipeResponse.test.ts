@@ -9,8 +9,8 @@ describe('Tests of the recipe response model', () => {
                 name: 'toast',
                 serves: 1,
                 difficulty: 'hard',
-                prepTime: '10',
-                cookingTime: '10',
+                prepTime: 10,
+                cookingTime: 10,
                 description: 'Test',
                 ingredients: [],
                 method: [],
@@ -24,8 +24,8 @@ describe('Tests of the recipe response model', () => {
         expect(recipe.name).toStrictEqual('toast');
         expect(recipe.serves).toStrictEqual(1);
         expect(recipe.difficulty).toStrictEqual('hard');
-        expect(recipe.prepTime).toStrictEqual('10');
-        expect(recipe.cookingTime).toStrictEqual('10');
+        expect(recipe.prepTime).toStrictEqual(10);
+        expect(recipe.cookingTime).toStrictEqual(10);
         expect(recipe.description).toStrictEqual('Test');
         expect(recipe.ingredients).toStrictEqual([]);
         expect(recipe.method).toStrictEqual([]);

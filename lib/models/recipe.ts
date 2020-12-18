@@ -9,8 +9,8 @@ export type Recipe = {
     serves: number;
     ingredients: Ingredient[];
     method: Instruction[];
-    prepTime: string;
-    cookingTime: string;
+    prepTime: number;
+    cookingTime: number;
     description: string;
     difficulty: string;
 };

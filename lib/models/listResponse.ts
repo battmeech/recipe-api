@@ -15,8 +15,8 @@ export class ListRecipe {
     id: string;
     name: string;
     serves: number;
-    prepTime: string;
-    cookingTime: string;
+    prepTime: number;
+    cookingTime: number;
     description: string;
     difficulty: string;
 
