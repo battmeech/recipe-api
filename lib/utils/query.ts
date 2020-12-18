@@ -8,7 +8,10 @@ export function constructQuery(request: ListRequest) {
     const query: any = {};
 
     if (request.pageToken) {
-        query._id = { $gt: request.pageToken };
+        query._id =
+            request.sort?.sortDirection === 'asc'
+                ? { $gt: request.pageToken }
+                : { $lt: request.pageToken };
     }
 
     if (request.filters?.difficulty) {
