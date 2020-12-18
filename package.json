@@ -17,7 +17,7 @@
     "author": "Matt Beech",
     "license": "ISC",
     "devDependencies": {
-        "@types/cors": "^2.8.6",
+        "@types/cors": "^2.8.9",
         "@types/express": "^4.17.9",
         "@types/jest": "^26.0.19",
         "@types/mongoose": "^5.10.3",
