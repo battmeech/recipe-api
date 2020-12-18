@@ -45,7 +45,7 @@ export default async (req: Request, res: Response) => {
         res.status(200).send(
             new RecipeResponse(
                 persistedRecipe,
-                persistedRecipe._id,
+                persistedRecipe.slug,
                 persistedRecipe.updatedAt
             )
         );

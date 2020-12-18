@@ -54,7 +54,7 @@ describe('Tests of the recipe persistence service', () => {
 
         // Mocks
         const persistenceMock = jest
-            .spyOn(RecipeModel, 'findById')
+            .spyOn(RecipeModel, 'findOne')
             .mockResolvedValue(expected);
 
         // Run test
@@ -65,7 +65,7 @@ describe('Tests of the recipe persistence service', () => {
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
-        expect(persistenceMock).toHaveBeenCalledWith(input);
+        expect(persistenceMock).toHaveBeenCalledWith({ slug: input });
     });
 
     it('Successfully updates a recipe', async () => {
@@ -109,7 +109,7 @@ describe('Tests of the recipe persistence service', () => {
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
         expect(persistenceMock).toHaveBeenCalledWith(
-            { _id: '12' },
+            { slug: '12' },
             { ...input, updatedAt: date }
         );
     });
@@ -131,7 +131,7 @@ describe('Tests of the recipe persistence service', () => {
 
         // Verify mocks
         expect(persistenceMock).toHaveBeenCalledTimes(1);
-        expect(persistenceMock).toHaveBeenCalledWith({ _id: input });
+        expect(persistenceMock).toHaveBeenCalledWith({ slug: input });
     });
 
     it('Successfully lists recipes', async () => {

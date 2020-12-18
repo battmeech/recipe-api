@@ -20,6 +20,7 @@ describe('Tests of the read route', () => {
     // Mock persisted body
     const expectedBody = {
         _id: '12',
+        slug: '12',
         ingredients: [] as Ingredient[],
         method: [] as Instruction[],
         name: 'Toast',
@@ -44,7 +45,7 @@ describe('Tests of the read route', () => {
         } as unknown) as Request;
 
         const expectedResponseBody: RecipeResponse = {
-            id: '12',
+            slug: '12',
             ingredients: [] as Ingredient[],
             method: [] as Instruction[],
             name: 'Toast',

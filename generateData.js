@@ -22,8 +22,8 @@ for (let i = 0; i < 20; i++) {
     const recipe = {
         name: `Recipe ${String.fromCharCode(97 + i)}`,
         serves: faker.random.number(),
-        prepTime: faker.vehicle.manufacturer(),
-        cookingTime: faker.system.fileName(),
+        prepTime: faker.random.number(),
+        cookingTime: faker.random.number(),
         description: faker.lorem.paragraph(),
         difficulty: faker.helpers.randomize(['EASY', 'HARD', 'MEDIUM']),
         ingredients,

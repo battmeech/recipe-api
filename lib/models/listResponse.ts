@@ -12,7 +12,7 @@ export type ListResponse = {
  * How the recipe is displayed in a list
  */
 export class ListRecipe {
-    id: string;
+    slug: string;
     name: string;
     serves: number;
     prepTime: number;
@@ -21,7 +21,7 @@ export class ListRecipe {
     difficulty: string;
 
     constructor(recipe: Recipe, id: string) {
-        this.id = id;
+        this.slug = id;
         this.name = recipe.name;
         this.serves = recipe.serves;
         this.prepTime = recipe.prepTime;

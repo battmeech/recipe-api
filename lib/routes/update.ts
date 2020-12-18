@@ -65,7 +65,7 @@ export default async (req: Request, res: Response) => {
         logger.info('New recipe saved');
 
         res.status(200).send(
-            new RecipeResponse(req.body, persistedRecipe._id, updatedAt)
+            new RecipeResponse(req.body, persistedRecipe.slug, updatedAt)
         );
     }
 };

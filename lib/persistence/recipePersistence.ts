@@ -26,7 +26,7 @@ export async function create(
  * @returns null when the recipe does not exist
  */
 export async function read(id: string): Promise<PersistedRecipe | null> {
-    const mongoResponse = await RecipeModel.findById(id);
+    const mongoResponse = await RecipeModel.findOne({ slug: id });
 
     return mongoResponse;
 }
@@ -43,7 +43,7 @@ export async function update(
     updatedAt: Date
 ): Promise<PersistedRecipe | null> {
     const persistedRecipe = await RecipeModel.findOneAndUpdate(
-        { _id: id },
+        { slug: id },
         { ...updatedRecipe, updatedAt }
     );
 
@@ -55,7 +55,7 @@ export async function update(
  * @param id the id of the recipe to be deleted
  */
 export async function _delete(id: string): Promise<number> {
-    const result = await RecipeModel.deleteOne({ _id: id });
+    const result = await RecipeModel.deleteOne({ slug: id });
 
     return result.deletedCount ?? 0;
 }
@@ -72,7 +72,7 @@ export async function list(
     const results = await RecipeModel.find(query)
         .sort({
             [listRequest.sort?.sortBy ?? 'updatedAt']:
-                listRequest.sort?.sortDirection ?? 'asc',
+                listRequest.sort?.sortDirection ?? 'desc',
         })
         .limit(listRequest.numberOfResults ?? 10);
 
