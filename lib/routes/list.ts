@@ -45,7 +45,7 @@ export default async (req: Request, res: Response) => {
     }
 
     const response: ListResponse = {
-        recipes: results.map(result => new ListRecipe(result, result._id)),
+        recipes: results.map((result) => new ListRecipe(result, result._id)),
         pageToken: results?.length > 0 ? results[results.length - 1]._id : '',
     };
 
