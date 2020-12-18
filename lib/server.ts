@@ -12,6 +12,10 @@ mongoose
     })
     .then(() => {
         logger.info('Connected to MongoDB');
+    })
+    .catch((error) => {
+        logger.error('Unable to connect to MongoDB');
+        logger.debug(error.stack);
     });
 
 app.listen(Config.port);
