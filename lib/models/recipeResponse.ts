@@ -6,7 +6,7 @@ import { Recipe } from './recipe';
  * The Recipe as it is returned to the user
  */
 export class RecipeResponse implements Recipe {
-    id: string;
+    slug: string;
     name: string;
     serves: number;
     ingredients: Ingredient[];
@@ -18,7 +18,7 @@ export class RecipeResponse implements Recipe {
     updatedAt: Date;
 
     constructor(recipe: Recipe, id: string, updatedAt: Date) {
-        this.id = id;
+        this.slug = id;
         this.name = recipe.name;
         this.serves = recipe.serves;
         this.ingredients = recipe.ingredients.map(

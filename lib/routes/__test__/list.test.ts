@@ -24,6 +24,7 @@ describe('Tests of the list route', () => {
     const expectedBody = [
         {
             _id: '12',
+            slug: '12',
             ingredients: [] as Ingredient[],
             method: [] as Instruction[],
             name: 'Toast',
@@ -51,7 +52,7 @@ describe('Tests of the list route', () => {
         const expectedResponseBody: ListResponse = {
             recipes: [
                 {
-                    id: '12',
+                    slug: '12',
                     name: 'Toast',
                     serves: 1,
                     difficulty: 'hard',

@@ -18,7 +18,7 @@ describe('Tests of the list recipe model', () => {
         );
 
         // Assert
-        expect(recipe.id).toStrictEqual('12');
+        expect(recipe.slug).toStrictEqual('12');
         expect(recipe.name).toStrictEqual('toast');
         expect(recipe.serves).toStrictEqual(1);
         expect(recipe.difficulty).toStrictEqual('hard');

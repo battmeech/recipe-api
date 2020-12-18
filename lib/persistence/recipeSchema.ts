@@ -1,7 +1,12 @@
 import mongoose, { Document } from 'mongoose';
 import { Recipe } from '../models/recipe';
 
-export type PersistedRecipe = Document & Recipe & { updatedAt: Date };
+const slug = require('mongoose-slug-generator');
+
+mongoose.plugin(slug);
+
+export type PersistedRecipe = Document &
+    Recipe & { updatedAt: Date; slug: string };
 
 const IncredientSchema = new mongoose.Schema({
     name: { type: String },
@@ -16,6 +21,7 @@ const MethodSchema = new mongoose.Schema({
 
 const RecipeSchema = new mongoose.Schema({
     name: { type: String, required: true },
+    slug: { type: String, slug: 'name', unique: true },
     updatedAt: { type: Date, required: true },
     serves: { type: Number },
     ingredients: [IncredientSchema],
