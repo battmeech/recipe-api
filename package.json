@@ -20,9 +20,9 @@
     "scripts": {
         "start": "node dist/server.js",
         "build": "tsc",
+        "build:watch": "tsc -w",
         "test": "jest",
-        "prettier": "prettier --write ./**/*.{ts,tsx,js,css,html,json}",
-        "webpack": "webpack --config webpack.config.ts"
+        "prettier": "prettier --write ./**/*.{ts,tsx,js,css,html,json}"
     },
     "keywords": [
         "recipes"

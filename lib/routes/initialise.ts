@@ -11,17 +11,17 @@ import { Config } from '../config';
 export function initialiseRoutes(app: Express) {
     logger.info('Initialising routes');
 
-    app.post('/recipe', create);
+    app.post('/api/recipe', create);
 
-    app.get('/recipe/:id', read);
+    app.get('/api/recipe/:id', read);
 
-    app.put('/recipe/:id', update);
+    app.put('/api/recipe/:id', update);
 
-    app.delete('/recipe/:id', _delete);
+    app.delete('/api/recipe/:id', _delete);
 
-    app.post('/list', list);
+    app.post('/api/list', list);
 
-    app.delete('/clean', async (req, res) => {
+    app.delete('/api/clean', async (req, res) => {
         if (Config.env === 'development') {
             logger.debug('Database being wiped');
             await RecipeModel.deleteMany({});
