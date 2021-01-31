@@ -1,11 +1,12 @@
 import cors from 'cors';
 import express from 'express';
-import { initialiseRoutes } from './routes/initialise';
+import { router } from './routes/router';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-initialiseRoutes(app);
+app.use(router);
+app.use(express.static('client/build'));
 
 export { app };
