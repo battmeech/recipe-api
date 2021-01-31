@@ -21,7 +21,7 @@
         "start": "node dist/server.js",
         "build": "tsc",
         "build:watch": "tsc -w",
-        "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
+        "heroku-postbuild": "tsc && npm install --prefix client && npm run build --prefix client",
         "test": "jest",
         "prettier": "prettier --write ./**/*.{ts,tsx,js,css,html,json}"
     },
