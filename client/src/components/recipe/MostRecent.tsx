@@ -38,7 +38,7 @@ function MostRecent() {
                 className={classes.header}
                 variant="h5"
                 data-testid="most-recent-text">
-                Most Recent {appState.isMobile ? 'mobile' : 'not mobile'}
+                Most Recent
             </Typography>
             <Grid data-testid="recipe-grid" container spacing={2}>
                 {props.children}

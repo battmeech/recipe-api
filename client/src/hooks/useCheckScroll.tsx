@@ -11,7 +11,6 @@ export function useCheckScroll() {
 
     // Create a function to monitor the size of the window
     const monitorScroll = () => {
-        console.log('here')
         dispatch(appActions.setIsTop(window.scrollY < 10));
     };
 
