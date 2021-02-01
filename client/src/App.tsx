@@ -1,6 +1,7 @@
 import { CssBaseline, ThemeProvider, useMediaQuery } from '@material-ui/core';
 import Container from 'components/global/Container';
 import Header from 'components/global/Header';
+import { useCheckMobile } from 'hooks/useCheckMobile';
 import LandingPage from 'pages/LandingPage';
 import NotFound from 'pages/NotFound';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -12,6 +13,9 @@ import { theme } from 'theme/theme';
  */
 function App() {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+    useCheckMobile();
+
     return (
         <BrowserRouter>
             <ThemeProvider theme={theme(prefersDarkMode)}>
