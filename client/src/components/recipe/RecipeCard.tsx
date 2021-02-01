@@ -1,13 +1,13 @@
 import {
     Card,
-    CardHeader,
     CardContent,
+    CardHeader,
     Typography,
-    CardActions,
-    Button,
+    Link,
 } from '@material-ui/core';
 import { ListRecipe } from 'models/listResponse';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link as RLink } from 'react-router-dom';
 
 type RecipeCardProps = {
     recipe: ListRecipe;
@@ -28,11 +28,14 @@ function RecipeCard(props: RecipeCardProps) {
                 className={classes?.cardHeaderClass}
                 aria-label={recipe.name}
                 data-testid="card-title"
-                title={recipe.name}
+                title={
+                    <Link component={RLink} to={recipe.slug} variant="h6">
+                        {recipe.name}
+                    </Link>
+                }
             />
-            <CardContent>
+            <CardContent className={classes?.cardContentClass}>
                 <Typography
-                    className={classes?.cardContentClass}
                     aria-label={`${recipe.name} description`}
                     data-testid="card-content">
                     {recipe.description.substring(
@@ -41,16 +44,6 @@ function RecipeCard(props: RecipeCardProps) {
                     )}
                 </Typography>
             </CardContent>
-
-            <CardActions>
-                <Button
-                    variant="outlined"
-                    component={Link}
-                    to={recipe.slug}
-                    aria-label="view recipe">
-                    View Recipe
-                </Button>
-            </CardActions>
         </Card>
     );
 }

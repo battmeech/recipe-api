@@ -3,6 +3,9 @@ import { HttpMethod } from 'models/httpMethod';
 import { LoadingStatus } from 'models/loadingStatus';
 import { useEffect, useState } from 'react';
 
+type Request = { url: string; method: HttpMethod; data?: any };
+type Return<T> = { response: T | undefined; loadingStatus: LoadingStatus };
+
 /**
  * Perform a GET request to a given URL and keep track of the request status for UI purposes
  * @param url the url to perform the get request
@@ -10,9 +13,9 @@ import { useEffect, useState } from 'react';
  * @param retryCount increment this number to cause a retry
  */
 export function useFetchData<T>(
-    request: { url: string; method: HttpMethod; data?: any },
+    request: Request,
     retryCount?: number
-): [T | undefined, LoadingStatus] {
+): Return<T> {
     const [response, setResponse] = useState<T>();
     const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>(
         'Not started'
@@ -31,5 +34,5 @@ export function useFetchData<T>(
             });
     }, [retryCount]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return [response, loadingStatus];
+    return { response, loadingStatus };
 }
