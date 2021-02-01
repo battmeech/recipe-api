@@ -5,6 +5,7 @@ import { useCheckScroll } from 'hooks/useCheckScroll';
 import { useIsMobile } from 'hooks/useIsMobile';
 import LandingPage from 'pages/LandingPage';
 import NotFound from 'pages/NotFound';
+import ViewRecipe from 'pages/ViewRecipe';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { theme } from 'theme/theme';
 
@@ -26,6 +27,7 @@ function App() {
                 <Container>
                     <Switch>
                         <Route path="/" exact component={LandingPage} />
+                        <Route path="/:slug" exact component={ViewRecipe} />
                         <Route component={NotFound} />
                     </Switch>
                 </Container>
