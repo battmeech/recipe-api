@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // State Type
 export type AppState = {
@@ -24,21 +24,15 @@ const appSlice = createSlice({
         closeError(state) {
             state.errorOpen = false;
         },
-        isMobile(state) {
-            state.isMobile = true;
+        setIsMobile(state, payload: PayloadAction<boolean>) {
+            state.isMobile = payload.payload;
         },
-        isNotMobile(state) {
-            state.isMobile = false;
-        },
-        isTop(state) {
-            state.isTop = true;
-        },
-        isNotTop(state) {
-            state.isTop = false;
+        setIsTop(state, payload: PayloadAction<boolean>) {
+            state.isTop = payload.payload;
         },
     },
 });
 
-export const actions = appSlice.actions;
+export const appActions = appSlice.actions;
 
 export default appSlice.reducer;

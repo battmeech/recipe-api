@@ -2,6 +2,7 @@ import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import RecipeCard from 'components/recipe/RecipeCard';
 import LoadingContent from 'components/skeleton/LoadingContent';
+import { useAppState } from 'hooks/useAppState';
 import { useFetchData } from 'hooks/useFetchData';
 import { ListResponse } from 'models/listResponse';
 import { Fragment, ReactNode } from 'react';
@@ -30,13 +31,14 @@ function MostRecent() {
         data: { numberOfResults: 3 },
     });
 
+    const appState = useAppState();
     const Wrapper = (props: { children: ReactNode }) => (
         <Box className={classes.root}>
             <Typography
                 className={classes.header}
                 variant="h5"
                 data-testid="most-recent-text">
-                Most Recent
+                Most Recent {appState.isMobile ? 'mobile' : 'not mobile'}
             </Typography>
             <Grid data-testid="recipe-grid" container spacing={2}>
                 {props.children}
