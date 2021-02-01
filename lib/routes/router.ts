@@ -27,6 +27,6 @@ if (Config.env === 'development') {
 
 if (Config.env === 'production') {
     router.use((req, res) => {
-        res.sendFile(path.join(__dirname, '../../client/build'));
+        res.sendFile(path.join(__dirname, '../../client/build/index.html'));
     });
 }
