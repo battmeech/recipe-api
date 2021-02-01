@@ -15,14 +15,15 @@ type RecipeCardProps = {
         cardContentClass?: string;
         cardHeaderClass?: string;
     };
+    className?: string;
 };
 
 /** Renders a basic card displaying a recipe */
 function RecipeCard(props: RecipeCardProps) {
-    const { recipe, classes } = props;
+    const { recipe, classes, className } = props;
 
     return (
-        <Card>
+        <Card className={className}>
             <CardHeader
                 className={classes?.cardHeaderClass}
                 aria-label={recipe.name}

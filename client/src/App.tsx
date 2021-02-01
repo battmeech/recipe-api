@@ -2,7 +2,8 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import Container from 'components/global/Container';
 import Header from 'components/global/Header';
 import LandingPage from 'pages/LandingPage';
-import { BrowserRouter, Route } from 'react-router-dom';
+import NotFound from 'pages/NotFound';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { theme } from 'theme/theme';
 
 /**
@@ -16,7 +17,10 @@ function App() {
                 <CssBaseline />
                 <Header />
                 <Container>
-                    <Route path="/" exact component={LandingPage} />
+                    <Switch>
+                        <Route path="/" exact component={LandingPage} />
+                        <Route component={NotFound} />
+                    </Switch>
                 </Container>
             </ThemeProvider>
         </BrowserRouter>
