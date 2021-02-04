@@ -1,10 +1,11 @@
+import { CircularProgress } from '@material-ui/core';
 import { LoadingStatus } from 'models/loadingStatus';
 import React, { ReactNode } from 'react';
-import { CircularProgress } from '@material-ui/core';
 
 type LoadingContentProps = {
     loadingStatus: LoadingStatus;
     skeletonContent?: ReactNode;
+
     content: ReactNode;
 };
 

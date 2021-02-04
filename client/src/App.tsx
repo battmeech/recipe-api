@@ -27,7 +27,11 @@ function App() {
                 <Container>
                     <Switch>
                         <Route path="/" exact component={LandingPage} />
-                        <Route path="/:slug" exact component={ViewRecipe} />
+                        <Route
+                            path="/view/:slug"
+                            exact
+                            component={ViewRecipe}
+                        />
                         <Route component={NotFound} />
                     </Switch>
                 </Container>

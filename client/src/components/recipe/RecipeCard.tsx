@@ -29,7 +29,10 @@ function RecipeCard(props: RecipeCardProps) {
                 aria-label={recipe.name}
                 data-testid="card-title"
                 title={
-                    <Link component={RLink} to={recipe.slug} variant="h6">
+                    <Link
+                        component={RLink}
+                        to={`/view/${recipe.slug}`}
+                        variant="h6">
                         {recipe.name}
                     </Link>
                 }

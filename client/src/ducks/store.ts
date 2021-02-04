@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import app from 'ducks/app';
+import recipe from 'ducks/recipe';
 
 const store = configureStore({
     reducer: {
         app,
+        recipe,
     },
 });
 
