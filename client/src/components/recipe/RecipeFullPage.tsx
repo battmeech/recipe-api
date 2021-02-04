@@ -1,6 +1,5 @@
 import { Box, Divider, Grid, Typography } from '@material-ui/core';
 import Spacer from 'components/Spacer';
-import { useAppState } from 'hooks/useAppState';
 import { useRecipeState } from 'hooks/useRecipeState';
 import React from 'react';
 import { sortObjects } from 'utils/sorting';
@@ -8,9 +7,6 @@ import { sortObjects } from 'utils/sorting';
 /** Renders a full display of a recipe, designed to fill a page */
 function RecipeFullPage() {
     const { recipe } = useRecipeState();
-    const { isMobile } = useAppState();
-
-    console.log(isMobile);
 
     return (
         <Grid container spacing={3}>
