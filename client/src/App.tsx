@@ -28,7 +28,7 @@ function App() {
                     <Switch>
                         <Route path="/" exact component={LandingPage} />
                         <Route
-                            path="/view/:slug"
+                            path="/recipes/:slug"
                             exact
                             component={ViewRecipe}
                         />

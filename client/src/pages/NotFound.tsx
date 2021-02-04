@@ -1,6 +1,7 @@
 import { Link, Typography } from '@material-ui/core';
 import { Fragment } from 'react';
 import { Link as RLink } from 'react-router-dom';
+import { getHomeLink } from 'utils/links';
 
 function NotFound() {
     return (
@@ -10,7 +11,7 @@ function NotFound() {
             </Typography>
             <Typography data-testid="404-text">
                 Resource not found.{' '}
-                <Link component={RLink} to="/">
+                <Link component={RLink} to={getHomeLink()}>
                     Go home
                 </Link>
             </Typography>

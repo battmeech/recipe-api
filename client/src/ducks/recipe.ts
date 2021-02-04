@@ -1,12 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RecipeApiError } from 'models/error';
+import { Recipe } from 'models/recipe';
 
 export const fetchRecipeById = createAsyncThunk(
     'recipe/fetchRecipeById',
-    async (recipeSlug: string, thunkApi): Promise<Object> => {
+    async (recipeSlug: string, thunkApi) => {
         try {
-            return await axios.get<Object>(`/api/recipe/${recipeSlug}`);
+            const { data } = await axios.get<Recipe>(
+                `/api/recipe/${recipeSlug}`
+            );
+            return data;
         } catch (error) {
             if (error.response) {
                 return thunkApi.rejectWithValue(error.response.data);
@@ -34,7 +38,7 @@ export type RecipeState =
           error: undefined;
       }
     | {
-          recipe: Object;
+          recipe: Recipe;
           loadingStatus: 'Complete';
           error: undefined;
       };
@@ -58,7 +62,7 @@ const recipeSlice = createSlice({
             })
             .addCase(
                 fetchRecipeById.fulfilled,
-                (state, action: PayloadAction<Object>) => {
+                (state, action: PayloadAction<Recipe>) => {
                     state.loadingStatus = 'Complete';
                     state.recipe = action.payload;
                     state.error = undefined;

@@ -8,6 +8,7 @@ import {
 import { ListRecipe } from 'models/listResponse';
 import React from 'react';
 import { Link as RLink } from 'react-router-dom';
+import { getViewRecipeLink } from 'utils/links';
 
 type RecipeCardProps = {
     recipe: ListRecipe;
@@ -31,7 +32,7 @@ function RecipeCard(props: RecipeCardProps) {
                 title={
                     <Link
                         component={RLink}
-                        to={`/view/${recipe.slug}`}
+                        to={getViewRecipeLink(recipe.slug)}
                         variant="h6">
                         {recipe.name}
                     </Link>

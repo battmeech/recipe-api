@@ -18,4 +18,6 @@ mongoose
         logger.debug(error.stack);
     });
 
-app.listen(Config.port);
+app.listen(Config.port, () => {
+    logger.info(`Server listening at port ${Config.port}`);
+});
