@@ -4,20 +4,18 @@ import { RecipeApiError } from 'models/error';
 
 export const fetchRecipeById = createAsyncThunk(
     'recipe/fetchRecipeById',
-    async (recipeSlug: string): Promise<Object> => {
+    async (recipeSlug: string, thunkApi): Promise<Object> => {
         try {
             return await axios.get<Object>(`/api/recipe/${recipeSlug}`);
         } catch (error) {
             if (error.response) {
-                console.log(error.response);
-                const recipeError: RecipeApiError = {
-                    status: error.response.data.status,
-                    message: error.response.data.message,
-                    details: error.response.data.details,
-                };
-                throw recipeError;
+                return thunkApi.rejectWithValue(error.response.data);
             } else {
-                throw error;
+                return thunkApi.rejectWithValue({
+                    status: 500,
+                    message: 'Server error',
+                    details: 'Unable to contact server',
+                });
             }
         }
     }
@@ -28,7 +26,7 @@ export type RecipeState =
     | {
           recipe: undefined;
           loadingStatus: 'Failed';
-          error: Object;
+          error: RecipeApiError;
       }
     | {
           recipe: undefined;
@@ -68,7 +66,7 @@ const recipeSlice = createSlice({
             )
             .addCase(fetchRecipeById.rejected, (state, action) => {
                 state.loadingStatus = 'Failed';
-                state.error = action.error;
+                state.error = action.payload as RecipeApiError;
                 state.recipe = undefined;
             });
     },

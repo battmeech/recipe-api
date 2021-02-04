@@ -9,6 +9,10 @@ type LoadingContentProps = {
     content: ReactNode;
 };
 
+/**
+ * Wrapper component which handles the 'loading status' of a request.
+ * Will render temporary content until the status is complete.
+ */
 function LoadingContent(props: LoadingContentProps) {
     const { loadingStatus, skeletonContent, content } = props;
 

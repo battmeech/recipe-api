@@ -1,7 +1,7 @@
 import { Skeleton } from '@material-ui/lab';
 import LoadingContent from 'components/skeleton/LoadingContent';
+import { useApiErrorHandler } from 'hooks/useApiErrorHandler';
 import { useFetchRecipe } from 'hooks/useFetchRecipe';
-import { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 type MatchParams = {
@@ -12,12 +12,7 @@ type ViewRecipeProps = RouteComponentProps<MatchParams>;
 function ViewRecipe(props: ViewRecipeProps) {
     const { slug } = props.match.params;
     const { loadingStatus, error } = useFetchRecipe(slug);
-
-    useEffect(() => {
-        if (loadingStatus === 'Failed') {
-            console.log(error);
-        }
-    }, [loadingStatus, error]);
+    useApiErrorHandler(loadingStatus, error);
 
     const SkeletonContent = () => <Skeleton height={400} width={400} />;
 
