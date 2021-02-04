@@ -1,11 +1,16 @@
 import { Box, Divider, Grid, Typography } from '@material-ui/core';
 import Spacer from 'components/Spacer';
+import { useAppState } from 'hooks/useAppState';
 import { useRecipeState } from 'hooks/useRecipeState';
-import React, { Fragment } from 'react';
+import React from 'react';
+import { sortObjects } from 'utils/sorting';
 
 /** Renders a full display of a recipe, designed to fill a page */
 function RecipeFullPage() {
     const { recipe } = useRecipeState();
+    const { isMobile } = useAppState();
+
+    console.log(isMobile);
 
     return (
         <Grid container spacing={3}>
@@ -35,21 +40,24 @@ function RecipeFullPage() {
                 <Typography variant="body2">{recipe?.description}</Typography>
             </Grid>
 
-            <Grid item xs={6} sm={6} md={4}>
-                <Typography variant="body2">
-                    {recipe?.ingredients.map((ingredient) => (
-                        <Typography key={ingredient.name}>
-                            {ingredient.quantity}
-                            {ingredient.quantityType} {ingredient.name}
-                        </Typography>
-                    ))}
-                </Typography>
+            <Grid item xs={6} sm={4} md={3}>
+                {recipe?.ingredients.map((ingredient) => (
+                    <Typography key={ingredient.name}>
+                        {ingredient.quantity}
+                        {ingredient.quantityType} {ingredient.name}
+                    </Typography>
+                ))}
             </Grid>
 
-            <Grid item xs={6} sm={6} md={8}>
-                <Typography variant="body2">
-                    {JSON.stringify(recipe?.method)}
-                </Typography>
+            <Grid item xs={6} sm={6} md={9}>
+                {recipe?.method
+                    .slice()
+                    .sort(sortObjects('number'))
+                    .map((instruction) => (
+                        <Typography key={instruction.number}>
+                            {instruction.number}. {instruction.instruction}
+                        </Typography>
+                    ))}
             </Grid>
         </Grid>
     );

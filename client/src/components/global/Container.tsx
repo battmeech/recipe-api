@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        maxWidth: 2000,
+        maxWidth: 1500,
         margin: 'auto',
         padding: theme.spacing(1, 2, 0, 2),
     },
