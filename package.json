@@ -47,7 +47,7 @@
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "joi": "^17.3.0",
-        "mongoose": "^5.11.10",
+        "mongoose": "^5.12.11",
         "mongoose-slug-generator": "^1.0.4",
         "winston": "^3.3.3"
     }
